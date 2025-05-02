@@ -5,6 +5,9 @@ import login_gif from "../../assets/videos/login_gif.mp4";
 import { useNavigate } from "react-router-dom";
 import InputField from "../components/InputFields";
 import { loginApi } from "../../services/loginApi";
+import { IUser } from "../../interfaces/user";
+import { getMe } from "../../services/User/getMe";
+import { Role } from "../../enums/Role";
 
 const LoginPage: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -35,10 +38,19 @@ const LoginPage: React.FC = () => {
       setError(result.error);
     } else {
       login(result.data.access_token);
-
-      setTimeout(() => {
-        navigate("/admin");
-      }, 0);
+      const userData = await getMe();
+      if ("data" in userData) {
+        const user: IUser = userData.data;
+        if (user.role === Role.ADMIN) {
+          setTimeout(() => {
+            navigate("/admin");
+          }, 0);
+        } else {
+          setTimeout(() => {
+            navigate("/editor");
+          }, 0);
+        }
+      }
     }
   };
 
