@@ -29,7 +29,10 @@ const Header: React.FC = () => {
   return (
     <header className=" text-black px-6 text-2xl font-bold shadow flex justify-between items-center bg-[#FFF5F5] border-b-2 border-[#FD7A7E] sticky top-0 z-10">
       <div>
-        <a href="/" className="flex items-center">
+        <a
+          href={user?.role === Role.ADMIN ? "/admin" : "/editor"}
+          className="flex items-center"
+        >
           <img src={logo_img} alt="logo_img" />
         </a>
       </div>

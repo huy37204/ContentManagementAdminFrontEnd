@@ -76,7 +76,7 @@ const ContentListPage: React.FC = () => {
   }, []);
 
   return (
-    <div className="w-full min-w-[600px] ">
+    <div className="w-full min-w-[600px] sm:px-8 md:px-12 lg:px-16">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Contents</h1>
         <button

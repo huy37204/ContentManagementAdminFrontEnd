@@ -94,7 +94,7 @@ const AdminPage: React.FC = () => {
   }, []);
 
   return (
-    <div className=" w-full min-w-[600px]">
+    <div className=" w-full min-w-[600px] sm:px-8 md:px-12 lg:px-16">
       <h1 className="text-2xl font-bold mb-4">Admin - User Management</h1>
 
       {/* Add User */}

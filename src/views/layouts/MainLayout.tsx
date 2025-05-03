@@ -20,7 +20,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ allowedRoles }) => {
   return (
     <div className="min-w-[600px]">
       <Header />
-      <main className="mt-4 sm:px-8 md:px-12 lg:px-16">
+      <main className="mt-4">
         <Outlet />
       </main>
     </div>
