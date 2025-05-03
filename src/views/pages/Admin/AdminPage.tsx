@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { AddUserDto, IUser } from "../../interfaces/user";
-import { getAllUsers } from "../../services/User/getAllUsers";
-import { updateUser } from "../../services/User/updateUser";
-import { createUser } from "../../services/User/createUsers";
-import CreateUserModal from "../components/CreateUserModal";
-import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
-import { deleteUser } from "../../services/User/deleteUsers";
-import { useAuth } from "../../contexts/AuthContext";
+import { AddUserDto, IUser } from "../../../interfaces/user";
+import { getAllUsers } from "../../../services/User/getAllUsers";
+import { updateUser } from "../../../services/User/updateUser";
+import { createUser } from "../../../services/User/createUsers";
+import CreateUserModal from "../../components/CreateUserModal";
+import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
+import { deleteUser } from "../../../services/User/deleteUsers";
+import { useAuth } from "../../../contexts/AuthContext";
 
 const AdminPage: React.FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -24,7 +24,7 @@ const AdminPage: React.FC = () => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   // Select User
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-
+  // Admin Id
   const { id } = useAuth();
   // Reset all state
   const resetState = () => {
@@ -94,7 +94,7 @@ const AdminPage: React.FC = () => {
   }, []);
 
   return (
-    <div className=" w-full min-w-[370px]">
+    <div className=" w-full min-w-[600px]">
       <h1 className="text-2xl font-bold mb-4">Admin - User Management</h1>
 
       {/* Add User */}
@@ -126,6 +126,18 @@ const AdminPage: React.FC = () => {
         onCreate={handleCreate}
         errorMsg={errorCreateUser}
         isSuccess={isCreateUserSuccess}
+      />
+      <ConfirmDeleteModal
+        isOpen={showDeletePopup}
+        onClose={() => {
+          setSelectedUserId(null);
+          setShowDeletePopup(false);
+          resetState();
+        }}
+        onConfirm={handleDelete}
+        message="Do you really want to delete this user?"
+        errorMsg={errorDeleteUser}
+        isSuccess={isDeleteUserSuccess}
       />
 
       {/* User Table */}
@@ -235,18 +247,6 @@ const AdminPage: React.FC = () => {
           </tbody>
         </table>
       </div>
-      <ConfirmDeleteModal
-        isOpen={showDeletePopup}
-        onClose={() => {
-          setSelectedUserId(null);
-          setShowDeletePopup(false);
-          resetState();
-        }}
-        onConfirm={handleDelete}
-        message="Do you really want to delete this user?"
-        errorMsg={errorDeleteUser}
-        isSuccess={isDeleteUserSuccess}
-      />
     </div>
   );
 };

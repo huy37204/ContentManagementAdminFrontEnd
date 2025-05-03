@@ -3,6 +3,7 @@ import logo_img from "../../assets/imgs/logo_image.png";
 import { getMe } from "../../services/User/getMe";
 import { IUser } from "../../interfaces/user";
 import { logOut } from "../../services/User/logOut";
+import { Role } from "../../enums/Role";
 
 const Header: React.FC = () => {
   const [user, setUser] = useState<IUser | null>(null);
@@ -33,7 +34,9 @@ const Header: React.FC = () => {
         </a>
       </div>
       <div>
-        <h2 className="text-[#FB5F8B] ">ADMIN MANAGEMENT</h2>
+        <h2 className="text-[#FB5F8B] ">
+          {user?.role === Role.ADMIN ? "ADMIN MANAGEMENT" : "EDITOR MANAGEMENT"}
+        </h2>
       </div>
       <div>
         <div
