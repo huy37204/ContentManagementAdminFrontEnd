@@ -6,6 +6,7 @@ import AdminPage from "../views/pages/Admin/AdminPage";
 import { Role } from "../enums/Role";
 import ContentListPage from "../views/pages/Editor/ContentListPage";
 import PreviewPage from "../views/pages/Editor/PreviewPage";
+import EditContentPage from "../views/pages/Editor/EditContentPage";
 
 export default function AppRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AppRoutes() {
       <Route element={<MainLayout allowedRoles={[Role.EDITOR]} />}>
         <Route path="/editor" element={<ContentListPage />} />
         <Route path="/editor/contents/:id/preview" element={<PreviewPage />} />
+        <Route path="/editor/contents/:id/edit" element={<EditContentPage />} />
       </Route>
 
       <Route path="/unauthorized" element={<div>Unauthorized</div>} />

@@ -14,3 +14,5 @@ export interface IContent {
 }
 
 export type AddContentDto = Pick<IContent, "title" | "blocks">;
+
+export type UpdateContentDto = Pick<IContent, "title" | "blocks">;

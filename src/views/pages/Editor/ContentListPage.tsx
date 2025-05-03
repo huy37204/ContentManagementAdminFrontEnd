@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import { deleteContent } from "../../../services/Content/deleteContent";
 import { Status } from "../../../enums/Status";
 import { publishContent } from "../../../services/Content/publishContent";
+import { format } from "date-fns";
 
 const ContentListPage: React.FC = () => {
   const [contents, setContents] = useState<IContent[]>([]);
@@ -133,7 +134,7 @@ const ContentListPage: React.FC = () => {
                   {content.status}
                 </td>
                 <td className="border px-4 py-2 w-[120px] truncate overflow-hidden whitespace-nowrap">
-                  {new Date(content.updatedAt).toLocaleDateString()}
+                  {format(content.updatedAt, "dd/MM/yyyy, hh:mm:ss a")}
                 </td>
                 <td className="border px-4 py-2 flex gap-2">
                   <button
