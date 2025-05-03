@@ -11,7 +11,6 @@ export const createUser = async (
   } catch (err) {
     console.error("Error creating user:", err);
     const errMsg = handleApiError(err);
-    console.log(errMsg);
     return { error: errMsg };
   }
 };

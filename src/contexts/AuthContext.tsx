@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
+  id: string;
   role: string | null;
   login: (token: string) => void;
   logout: () => void;
@@ -10,6 +11,7 @@ interface AuthContextType {
 }
 
 interface JwtPayload {
+  id: string;
   role: string;
   sub: string;
   exp: number;
@@ -18,6 +20,7 @@ interface JwtPayload {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [id, setId] = useState<string>("");
   const [role, setRole] = useState<string | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,8 +31,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (token) {
       try {
         const decoded = jwtDecode<JwtPayload>(token);
-        console.log(decoded);
         if (decoded.exp * 1000 > Date.now()) {
+          setId(decoded.sub);
           setRole(decoded.role);
           setIsAuthenticated(true);
         } else {
@@ -57,7 +60,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, role, login, logout, isLoading }}
+      value={{ isAuthenticated, id, role, login, logout, isLoading }}
     >
       {children}
     </AuthContext.Provider>
