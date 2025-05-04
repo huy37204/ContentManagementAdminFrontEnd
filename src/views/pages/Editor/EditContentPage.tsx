@@ -7,6 +7,7 @@ import BlockEditor from "../../components/Editor/BlockEditor";
 import { findContentById } from "../../../services/Content/findContentById";
 import InputField from "../../components/InputFields";
 import { updateContent } from "../../../services/Content/updateContent";
+import { BlockType } from "../../../enums/BlockType";
 
 const EditContentPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,6 +41,10 @@ const EditContentPage = () => {
       setError("Please fill in all blank");
       return;
     }
+    if (!validateBlanks(content.blocks)) {
+      setError("Please fill in all blank");
+      return;
+    }
     if (!content || !id) return;
     setIsSubmitting(true);
     const res = await updateContent(id, {
@@ -51,6 +56,22 @@ const EditContentPage = () => {
       setError(res.error);
       return;
     } else navigate(`/editor`);
+  };
+
+  const validateBlanks = (blocks: IBlock[]): boolean => {
+    for (const block of blocks) {
+      if (block.type === BlockType.TEXT) {
+        for (let i = 0; i < block.headings!.length; i++) {
+          const heading = block.headings![i]?.trim();
+          const paragraph = block.paragraphs![i]?.trim();
+
+          if (!heading || !paragraph) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   };
 
   if (!content) return <p>Loading...</p>;
