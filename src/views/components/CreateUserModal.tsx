@@ -122,7 +122,7 @@ const CreateUserModal: React.FC<Props> = ({
           value={form.role}
           onChange={(e) => handleChange("role", e.target.value as Role)}
         >
-          <option value="user">User</option>
+          <option value="client">Client</option>
           <option value="editor">Editor</option>
           <option value="admin">Admin</option>
         </select>
