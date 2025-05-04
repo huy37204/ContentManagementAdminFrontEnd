@@ -1,54 +1,113 @@
-# React + TypeScript + Vite
+# 📘 Admin Frontend – Content Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the **admin-facing frontend** of the Content Management System, built with **React**, **TypeScript**, and **TailwindCSS**. It allows regular admins and editors to make changes for content and users' accounts.
 
-Currently, two official plugins are available:
+## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **CRUD Users' Accounts**:  
+  Admin can **Create**, **Update**, and **Delete** users' accounts.
 
-## Expanding the ESLint configuration
+- **CRUD Content**:  
+  Editors can **Create**, **Preview**, **Update**, **Upload image/\*, video/\*** and **Delete** contents.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Content Block Types**:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+  - **Text**: Paragraphs, headings.
+  - **Image**: Upload images to **S3**.
+  - **Video**: Upload videos to **S3**.
+
+- **Preview**:  
+  Editors can preview the structured content before submitting.
+
+- **Submit**:  
+  Editors submit content changes to apply them on the client-side frontend for realtime.
+
+---
+
+## 🚧 Constraints
+
+- Admin Self-Protection:
+  Admin cannot edit or delete their own account to prevent accidental lockout or privilege loss.
+
+- Content Submission Flow:
+  Any content that an Editor creates or updates will always be saved in **'draft'** status by default.
+  Editors after preview that content can then publish it.
+
+## 🧩 Technologies Used
+
+- **React** (with Hooks)
+- **Vite** – lightning-fast build tool
+- **TypeScript**
+- **TailwindCSS**
+- **React Router**
+- **Axios** for API calls
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/huy37204/ContentManagementAdminFrontEnd.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+```bash
+npm install
 ```
+
+### 💻 Running the App
+
+```bash
+npm run dev
+```
+
+The app will be available at http://localhost:5173 by default.
+
+### 🧠 Notes
+
+All requests requiring authentication should include the Bearer token in headers.
+
+Login is required to unlock certain features (e.g., private content, user info).
+
+### 🛠 Workflow File: `.github/workflows/admin-ci.yml`
+
+```yaml
+name: Admin Frontend CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+```
+
+## 📹 Video Demo
+
+Watch the demo video here:  
+▶️ [Click to watch on YouTube](https://www.youtube.com/watch?v=2qURYZtp5g8)
+
+## 👨‍💻 Maintainer
+
+Tran Nhat Huy
+
+Email: huy37204@gmail.com
