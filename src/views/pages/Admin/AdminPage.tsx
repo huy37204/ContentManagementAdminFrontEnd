@@ -7,6 +7,7 @@ import CreateUserModal from "../../components/CreateUserModal";
 import ConfirmDeleteModal from "../../components/ConfirmDeleteModal";
 import { deleteUser } from "../../../services/User/deleteUsers";
 import { useAuth } from "../../../contexts/AuthContext";
+import { Role } from "../../../enums/Role";
 
 const AdminPage: React.FC = () => {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -193,7 +194,10 @@ const AdminPage: React.FC = () => {
                     <select
                       value={editingUser.role}
                       onChange={(e) =>
-                        setEditingUser({ ...editingUser, role: e.target.value })
+                        setEditingUser({
+                          ...editingUser,
+                          role: e.target.value as Role,
+                        })
                       }
                       className="border w-full p-2 max-w-full truncate"
                     >
