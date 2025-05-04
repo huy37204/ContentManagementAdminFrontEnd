@@ -48,6 +48,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = (token: string) => {
     sessionStorage.setItem("access_token", token);
     const decoded = jwtDecode<JwtPayload>(token);
+    setId(decoded.sub);
     setRole(decoded.role);
     setIsAuthenticated(true);
   };

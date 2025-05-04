@@ -27,6 +27,7 @@ const AdminPage: React.FC = () => {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   // Admin Id
   const { id } = useAuth();
+
   // Reset all state
   const resetState = () => {
     setErrorCreateUser("");
