@@ -13,13 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Check Directory Structure
-        run: |
-          echo "Current Directory:"
-          pwd
-          echo "Contents:"
-          ls -l
-
       - name: Setup SSH Key and Permissions
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
@@ -44,5 +37,6 @@ jobs:
             cd /var/www/admin-frontend && 
             npm install && 
             npm run build && 
-            pm2 restart admin-frontend || pm2 start npm --name admin-frontend -- run start
+            pm2 delete admin-frontend || true && 
+            pm2 start npm --name admin-frontend -- run preview
           "
