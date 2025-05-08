@@ -23,7 +23,7 @@ jobs:
       - name: Sync Backend to Droplet
         env:
           SSH_HOST: huytran3.workspace.opstech.org
-          SSH_USER: root
+          SSH_USER: alsp
         run: |
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
           -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./ $SSH_USER@$SSH_HOST:/var/www/backend
@@ -32,7 +32,7 @@ jobs:
       - name: Sync Admin Frontend to Droplet
         env:
           SSH_HOST: huytran3.workspace.opstech.org
-          SSH_USER: root
+          SSH_USER: alsp
         run: |
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
           -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./admin-frontend/ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
@@ -41,10 +41,10 @@ jobs:
       - name: Sync Admin Frontend to Droplet
         env:
           SSH_HOST: huytran3.workspace.opstech.org
-          SSH_USER: root
+          SSH_USER: alsp
         run: |
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
           -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./admin-frontend/ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
           ssh -i key.pem $SSH_USER@$SSH_HOST "cd /var/www/admin-frontend && npm install && npm run build && pm2 restart admin-frontend"
 
-# Deploy test 2
+# Deploy test 3
