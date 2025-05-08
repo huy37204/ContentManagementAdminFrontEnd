@@ -12,8 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        with:
-          path: ./app
+
+      - name: Check Directory Structure
+        run: |
+          pwd
+          ls -l
+          ls -l admin-frontend
 
       - name: Setup SSH Key and Permissions
         env:
@@ -28,13 +32,16 @@ jobs:
           SSH_USER: alsp
         run: |
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
-          -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./app/admin-frontend/ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
+          -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./admin-frontend/ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
 
+      - name: Install Dependencies and Build
+        env:
+          SSH_HOST: huytran3.workspace.opstech.org
+          SSH_USER: alsp
+        run: |
           ssh -i key.pem $SSH_USER@$SSH_HOST "
             cd /var/www/admin-frontend && 
             npm install && 
             npm run build && 
             pm2 restart admin-frontend || pm2 start npm --name admin-frontend -- run start
           "
-
-# Test deploy
