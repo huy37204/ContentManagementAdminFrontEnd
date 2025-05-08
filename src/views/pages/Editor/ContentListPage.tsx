@@ -114,7 +114,7 @@ const ContentListPage: React.FC = () => {
         <table className="w-full border border-collapse">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border px-4 py-2 w-[120px]">ID</th>
+              <th className="border px-4 py-2 w-[120px]">IDD</th>
               <th className="border px-4 py-2 w-[120px]">Title</th>
               <th className="border px-4 py-2 w-[120px]">Status</th>
               <th className="border px-4 py-2 w-[120px]">Updated At</th>
