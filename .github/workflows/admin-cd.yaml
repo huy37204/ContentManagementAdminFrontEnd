@@ -28,15 +28,13 @@ jobs:
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
           -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
 
-      - name: Install Dependencies and Build
+      - name: Run Deploy Script
         env:
           SSH_HOST: huytran3.workspace.opstech.org
           SSH_USER: alsp
         run: |
           ssh -i key.pem $SSH_USER@$SSH_HOST "
-            cd /var/www/admin-frontend && 
-            npm install && 
-            npm run build && 
-            pm2 delete admin-frontend || true && 
-            pm2 start npm --name admin-frontend -- run preview
+            cd /var/www/admin-frontend &&
+            chmod +x deploy.sh &&
+            ./deploy.sh
           "
