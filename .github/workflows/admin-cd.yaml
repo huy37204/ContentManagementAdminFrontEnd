@@ -46,3 +46,5 @@ jobs:
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
           -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./admin-frontend/ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
           ssh -i key.pem $SSH_USER@$SSH_HOST "cd /var/www/admin-frontend && npm install && npm run build && pm2 restart admin-frontend"
+
+# Deploy test
