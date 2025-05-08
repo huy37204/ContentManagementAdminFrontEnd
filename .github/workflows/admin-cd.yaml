@@ -15,9 +15,10 @@ jobs:
 
       - name: Check Directory Structure
         run: |
+          echo "Current Directory:"
           pwd
+          echo "Contents:"
           ls -l
-          ls -l admin-frontend
 
       - name: Setup SSH Key and Permissions
         env:
@@ -32,7 +33,7 @@ jobs:
           SSH_USER: alsp
         run: |
           rsync -avz --exclude='node_modules' --exclude='.git' --exclude='.github' \
-          -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./admin-frontend/ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
+          -e "ssh -o StrictHostKeyChecking=no -i key.pem" ./ $SSH_USER@$SSH_HOST:/var/www/admin-frontend
 
       - name: Install Dependencies and Build
         env:
